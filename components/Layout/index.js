@@ -4,7 +4,7 @@ const Layout = ({ children }) => {
     return <div>
         <div className='max-w-sm bg-white min-h-screen m-auto'>
             <header>
-                <div class="w-96 h-16 bg-gray-100 py-6 px-5 flex justify-between items-center">
+                <div className="w-96 h-16 bg-gray-100 py-6 px-5 flex justify-between items-center">
                     <svg width={23} height={23} viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M10.0832 5.58333L3.6665 12L10.0832 18.4167" stroke="#6F6E73" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
                         <path d="M3.6665 12H18.3332" stroke="#6F6E73" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
@@ -29,7 +29,7 @@ const Layout = ({ children }) => {
                         <svg className="mr-2 absolute inset-0 m-auto" width="11" height="8" viewBox="0 0 11 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M9.81048 0H1.97899C1.15885 0 0.687426 0.932936 1.17394 1.5932L5.08968 6.90742C5.48935 7.44983 6.30013 7.44983 6.69979 6.90742L10.6155 1.5932C11.102 0.932935 10.6306 0 9.81048 0Z" fill="#C4C4C4" />
                         </svg>
-                        <input value={"Johndoe.near"} class="text-sm font-semibold text-center text-gray-700 w-full h-full py-3 px-12 " />
+                        <input value={"Johndoe.near"} className="text-sm font-semibold text-center text-gray-700 w-full h-full py-3 px-12 " />
                     </div>
                     <svg width={26} height={26} viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M13.7811 5.41991L12.193 5.41666C8.57031 5.40799 5.42539 8.35141 5.40048 11.9167V16.0225C5.40048 16.8783 5.29214 17.7136 4.82523 18.4253L4.51431 18.8998C4.04089 19.6192 4.55006 20.5833 5.40048 20.5833H20.5996C21.4501 20.5833 21.9581 19.6192 21.4858 18.8998L21.1749 18.4253C20.7091 17.7136 20.5996 16.8772 20.5996 16.0214V11.9177C20.5563 8.35141 17.4038 5.42858 13.7811 5.41991V5.41991Z" fill="#BEBEC2" />

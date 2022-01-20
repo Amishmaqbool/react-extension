@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Modal } from 'rsuite';
 import Layout from '../components/Layout';
 
-const page5 = () => {
+const Page5 = () => {
     const [open, setOpen] = useState(true);
     return (
         <>
@@ -68,4 +68,4 @@ const page5 = () => {
     )
 };
 
-export default page5;
+export default Page5;
