@@ -1,14 +1,13 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import OTPInput, { ResendOTP } from "OTP-input-react";
-
+import OtpInput from 'react-otp-input';
 export default function SignupComponent() {
   const [view, setView] = useState("email");
   const [step, setStep] = useState(1);
-  
+
   return (
     <>
-      <div className="max-w-sm bg-white m-auto">
+      <div className="max-w-sm bg-white m-auto min-h-screen shadow-lg">
         {/* Header */}
         <div className={`${step === 6 ? "bg-gradient-to-r from-blue-400 to-purple-500 py-8" : "bg-gray-100 py-4"} flex justify-center w-full mb-6`}>
           {step === 1 && <img src="/images/home.png" alt="home" />}
@@ -36,7 +35,7 @@ export default function SignupComponent() {
         {(step === 1 || step === 3) && (
           <div className="mt-6">
             <p className="text-center text-xs px-12 leading-6">
-              By creating a NEAR account, you agree to the NEAR {`${step===1?"labs":"Wallet"}`} <span className={`${step===1?"text-blue-600":"text-purple-600"}`}>{`${step===1?"Terms & Conditions":"Terms of Service"}`}</span> and <span className={`${step===1?"text-blue-600":"text-purple-600"}`}>Privacy Policy</span>.
+              By creating a NEAR account, you agree to the NEAR {`${step===1?"labs":"Wallet"}`} <span className={`cursor-pointer ${step===1?"text-blue-600":"text-purple-600"}`}>{`${step===1?"Terms & Conditions":"Terms of Service"}`}</span> and <span className={`cursor-pointer ${step===1?"text-blue-600":"text-purple-600"}`}>Privacy Policy</span>.
             </p>
             <div className="w-full border-b border-gray-300 mt-7 mb-6" />
             <p className="text-gray-800 text-sm font-medium text-center mb-2.5">Already have NEAR Account?</p>
@@ -108,7 +107,7 @@ const Home = ({ setStep, view, setView }) => {
           <input type={view === "phone" ? "text" : view} value={inputValue} onChange={(e) => setInputValue(e.target.value)} placeholder={`Enter your ${view}`} className="py-3 px-5 w-full h-full rounded-lg border border-gray-300 focus:border-purple-600 focus:outline-none" />
         </div>
         <div className="flex justify-center w-full">
-          <button className={`font-semibold py-2.5 px-5 rounded-lg text-white flex items-center ${(view === "email" && validateEmail(inputValue)) || (view === "phone" && inputValue.length > 4) ? "bg-purple-500" : "bg-gray-300"} `} type="submit">
+          <button disabled={(view === "email" && !validateEmail(inputValue)) || (view === "phone" && inputValue.length < 4)} className={`font-semibold py-2.5 px-5 rounded-lg text-white flex items-center ${(view === "email" && validateEmail(inputValue)) || (view === "phone" && inputValue.length > 4) ? "bg-purple-500" : "bg-gray-300"} `} type="submit">
             <span className="mr-3">Continue</span>
             <svg width={8} height={14} viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
@@ -127,9 +126,8 @@ const Verify = ({ setStep, view }) => {
   const selectUser = (state) => state.user;
   const { email, phone } = useSelector(selectUser);
   const [OTP, setOTP] = useState("");
-  const [isResend, setIsResend] = useState(false);
   const [isWrongOTP, setIsWrongOTP] = useState(false);
-  let defaultOTP = "123456";
+  const defaultOTP = "123456";
   const verify = () => {
     if (OTP === defaultOTP) {
       setStep(3);
@@ -144,23 +142,17 @@ const Verify = ({ setStep, view }) => {
         <span className="text-blue-600 font-medium">{view === "email" ? email : phone}</span>
       </p>
       <p className="mb-2 text-gray-600 text-center">Enter verification code</p>
-      <OTPInput
+      <OtpInput
         value={OTP}
-        onChange={setOTP}
-        autoFocus
-        OTPLength={6}
-        OTPType="number"
-        disabled={false}
-        className="justify-center"
-        inputClassName={`border ${isWrongOTP ? "border-red-500" : "border-gray-300"} w-10 h-10 bg-gray-100 rounded-md text-gray-800 focus:border-purple-600 focus:outline-none`}
+        onChange={(otp)=>setOTP(otp)}
+        numInputs={6}
+        isInputNum={true}
+        containerStyle="justify-center"
+        inputStyle={`otp border ${isWrongOTP ? "border-red-500" : "border-gray-300"} w-10 h-10 bg-gray-100 rounded-md text-gray-800`}
+        focusStyle={"border-purple-600 outline-none"}
       />
-      {isResend && (
-        <div className="px-12 mt-4 text-blue-500">
-          <ResendOTP onResendClick={() => console.log("Resend clicked")} />
-        </div>
-      )}
       <div className="flex justify-center w-full mt-8">
-        <button onClick={verify} disabled={OTP !== defaultOTP} className={`font-semibold py-2.5 px-5 rounded-lg text-white flex items-center ${OTP === defaultOTP ? "bg-purple-500" : "bg-gray-300"} `} type="submit">
+        <button onClick={verify} disabled={OTP .length!==6} className={`font-semibold py-2.5 px-5 rounded-lg text-white flex items-center ${OTP .length===6 ? "bg-purple-500" : "bg-gray-300"} `} type="submit">
           <span className="mr-3">Continue</span>
           <svg width={8} height={14} viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -173,7 +165,7 @@ const Verify = ({ setStep, view }) => {
       <div className="w-full border-b border-gray-300 mt-7 mb-6" />
       <p className="text-gray-800 text-sm font-medium text-center">Didn`t receive your code?</p>
       <p onClick={() => setStep(1)} className="text-blue-600 text-sm font-medium text-center my-6 cursor-pointer">{`Send to a different ${view === "email" ? "email address" : view}`}</p>
-      <p onClick={() => setIsResend(true)} className="text-blue-600 text-sm font-medium text-center cursor-pointer">
+      <p className="text-blue-600 text-sm font-medium text-center cursor-pointer">
         Resend your code
       </p>
     </div>
