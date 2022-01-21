@@ -35,7 +35,7 @@ export default function SignupComponent() {
         {(step === 1 || step === 3) && (
           <div className="mt-6">
             <p className="text-center text-xs px-12 leading-6">
-              By creating a NEAR account, you agree to the NEAR Wallet <span className="text-purple-600">Terms of Service</span> and <span className="text-purple-600">Privacy Policy</span>.
+              By creating a NEAR account, you agree to the NEAR {`${step===1?"labs":"Wallet"}`} <span className={`${step===1?"text-blue-600":"text-purple-600"}`}>{`${step===1?"Terms & Conditions":"Terms of Service"}`}</span> and <span className={`${step===1?"text-blue-600":"text-purple-600"}`}>Privacy Policy</span>.
             </p>
             <div className="w-full border-b border-gray-300 mt-7 mb-6" />
             <p className="text-gray-800 text-sm font-medium text-center mb-2.5">Already have NEAR Account?</p>
