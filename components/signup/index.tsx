@@ -5,6 +5,7 @@ import OTPInput, { ResendOTP } from "OTP-input-react";
 export default function SignupComponent() {
   const [view, setView] = useState("email");
   const [step, setStep] = useState(1);
+  
   return (
     <>
       <div className="max-w-sm bg-white m-auto">
